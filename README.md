@@ -10,7 +10,6 @@
 
 Dashboard de proyectos para macOS: arrastra carpetas (Node, Rust, Tauri, Python, Java, Go…) y ten métricas, dev servers, builds y el historial de Git a un vistazo.
 
-Construido en Rust con Tauri2 como Front + Componentes Nativos LiquidGlass via NSVisualEffectMaterial
 ![stack](https://img.shields.io/badge/Tauri-2-24C8DB) ![stack](https://img.shields.io/badge/React-19-61DAFB) ![stack](https://img.shields.io/badge/Rust-stable-DEA584)
 
 ## Qué hace
