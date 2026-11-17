@@ -10,6 +10,7 @@
 
 Dashboard de proyectos para macOS: arrastra carpetas (Node, Rust, Tauri, Python, Java, Go…) y ten métricas, dev servers, builds y el historial de Git a un vistazo.
 
+Construido en Rust con Tauri2 como Front + Componentes Nativos LiquidGlass via NSVisualEffectMaterial
 ![stack](https://img.shields.io/badge/Tauri-2-24C8DB) ![stack](https://img.shields.io/badge/React-19-61DAFB) ![stack](https://img.shields.io/badge/Rust-stable-DEA584)
 
 ## Qué hace
@@ -49,15 +50,11 @@ cargo test --manifest-path src-tauri/Cargo.toml --lib
 
 - Los procesos se lanzan en su propio **process group** (`process_group(0)`) y el stop llama `kill(2)` sobre el pgid — `kill(1)` de macOS parsea mal los pids negativos.
 - PATH extendido en el backend (`/opt/homebrew/bin`, `~/.cargo/bin`, …) porque una app lanzada por launchd/Finder no hereda tu shell PATH.
-- Vidrio nativo vía `window-vibrancy` (`NSVisualEffectMaterial::UnderWindowBackground`), `titleBarStyle: Overlay`.
+- Glass nativo vía `window-vibrancy` (`NSVisualEffectMaterial::UnderWindowBackground`), `titleBarStyle: Overlay`.
 
 ## CI
 
 `.github/workflows/ci.yml`: build del frontend + `cargo test` + bundle debug en runner macOS en cada push/PR.
-
-## Logo
-
-La marca es una **D cuyo remate superior es una bita de amarre**: el proyecto, amarrado al muelle. Diseñada con la skill *logo-design* (geometría auditada, funciona a 16 px y en un color). Fuente vectorial en `design/`, variantes en `design/variants/`.
 
 ## Licencia
 
