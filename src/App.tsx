@@ -241,6 +241,17 @@ export default function App() {
     } catch (e: any) { notify(`git init: ${String(e)}`); }
   };
 
+  // ⌘1-4: switch drawer tabs
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (!e.metaKey || !detailProject) return;
+      const map: Record<string, typeof detailTab> = { "1": "info", "2": "scripts", "3": "git", "4": "logs" };
+      if (map[e.key]) { e.preventDefault(); setDetailTab(map[e.key]); }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [detailProject]);
+
   const gitLayout = useMemo(() => {
     const indexByHash = new Map<string, number>();
     gitCommits.forEach((c, i) => indexByHash.set(c.hash, i));

@@ -12,6 +12,12 @@ Dashboard de proyectos para macOS: arrastra carpetas (Node, Rust, Tauri, Python,
 
 ![stack](https://img.shields.io/badge/Tauri-2-24C8DB) ![stack](https://img.shields.io/badge/React-19-61DAFB) ![stack](https://img.shields.io/badge/Rust-stable-DEA584)
 
+## Screenshots
+
+| Dashboard | Detalle (Git graph) | Logs |
+|---|---|---|
+| ![Dashboard](docs/screenshots/shot-dashboard.png) | ![Git](docs/screenshots/shot-git.png) | ![Logs](docs/screenshots/shot-logs.png) |
+
 ## Qué hace
 
 - **Drag & drop** de carpetas de proyectos y detección automática del tipo (package.json, Cargo.toml, pyproject.toml, pom.xml, go.mod…).

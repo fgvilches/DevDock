@@ -147,7 +147,7 @@ mod tests {
         // reproduce the real case: npm run dev spawns vite as a child tree
         let mut cmd = Command::new("npm");
         cmd.args(["run", "dev", "--", "--port", "14999", "--strictPort"])
-            .current_dir("/Users/shift/Desktop/code/DevDock")
+            .current_dir(concat!(env!("CARGO_MANIFEST_DIR"), "/.."))
             .process_group(0)
             .env("PATH", crate::commands::path_env())
             .stdout(Stdio::piped())
