@@ -28,6 +28,15 @@ pub fn path_dirs() -> Vec<String> {
         v.push(format!("{}/.pyenv/shims", h));
         v.push(format!("{}/.local/share/mise/shims", h));
     }
+    // fall back to the inherited PATH last (CI runners and shells often have
+    // toolchains elsewhere, e.g. rustup-managed cargo)
+    if let Ok(path) = std::env::var("PATH") {
+        for dir in path.split(':') {
+            if !dir.is_empty() && !v.contains(&dir.to_string()) {
+                v.push(dir.to_string());
+            }
+        }
+    }
     v
 }
 
