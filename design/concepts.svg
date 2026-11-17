@@ -1,0 +1,317 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="840" viewBox="0 0 1600 840"><defs><filter id="grey"><feColorMatrix type="saturate" values="0"/></filter></defs><rect width="1600" height="840" fill="#f7f7f4"/><text x="60" y="78" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="40" font-weight="700" fill="#161616">Logo concepts</text><text x="60" y="116" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="20" fill="#6b6b6b">Concepts for review — pick a direction (or tell me what you like in each).</text><rect x="60" y="150" width="474.667" height="630" rx="18" fill="#fff" stroke="#e4e4e0" stroke-width="1"/><g filter="url(#grey)"><svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="90" y="190" width="414.667" height="300" preserveAspectRatio="xMidYMid meet">
+  <title>DevDock concept A — bita amarre</title>
+  <!-- Concept A v2 — letterform D; its roof swells into a mooring bollard crest.
+       Optically centred: mark spans y20..216 (margins 20/20). Stem x48-96, bowl right x208. -->
+  <path fill="#000000" fill-rule="evenodd" d="
+    M48 216
+    L48 52
+    C48 28 70 20 96 20
+    C112 20 128 36 128 56
+    A80 80 0 0 1 128 216
+    Z
+    M96 96
+    L96 176
+    L168 176
+    A40 40 0 0 0 168 96
+    Z"/>
+</svg>
+</g><g filter="url(#grey)"><svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="90" y="516" width="64" height="64" preserveAspectRatio="xMidYMid meet">
+  <title>DevDock concept A — bita amarre</title>
+  <!-- Concept A v2 — letterform D; its roof swells into a mooring bollard crest.
+       Optically centred: mark spans y20..216 (margins 20/20). Stem x48-96, bowl right x208. -->
+  <path fill="#000000" fill-rule="evenodd" d="
+    M48 216
+    L48 52
+    C48 28 70 20 96 20
+    C112 20 128 36 128 56
+    A80 80 0 0 1 128 216
+    Z
+    M96 96
+    L96 176
+    L168 176
+    A40 40 0 0 0 168 96
+    Z"/>
+</svg>
+</g><text x="122" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g filter="url(#grey)"><svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="180" y="548" width="32" height="32" preserveAspectRatio="xMidYMid meet">
+  <title>DevDock concept A — bita amarre</title>
+  <!-- Concept A v2 — letterform D; its roof swells into a mooring bollard crest.
+       Optically centred: mark spans y20..216 (margins 20/20). Stem x48-96, bowl right x208. -->
+  <path fill="#000000" fill-rule="evenodd" d="
+    M48 216
+    L48 52
+    C48 28 70 20 96 20
+    C112 20 128 36 128 56
+    A80 80 0 0 1 128 216
+    Z
+    M96 96
+    L96 176
+    L168 176
+    A40 40 0 0 0 168 96
+    Z"/>
+</svg>
+</g><text x="196" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g filter="url(#grey)"><svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="238" y="564" width="16" height="16" preserveAspectRatio="xMidYMid meet">
+  <title>DevDock concept A — bita amarre</title>
+  <!-- Concept A v2 — letterform D; its roof swells into a mooring bollard crest.
+       Optically centred: mark spans y20..216 (margins 20/20). Stem x48-96, bowl right x208. -->
+  <path fill="#000000" fill-rule="evenodd" d="
+    M48 216
+    L48 52
+    C48 28 70 20 96 20
+    C112 20 128 36 128 56
+    A80 80 0 0 1 128 216
+    Z
+    M96 96
+    L96 176
+    L168 176
+    A40 40 0 0 0 168 96
+    Z"/>
+</svg>
+</g><text x="246" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="90.0" y="636" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">A · Bita amarre</text><text x="90.0" y="670" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">La D cuyo techo se hincha en bita de</text><text x="90.0" y="696" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">amarre: tu proyecto, amarrado al muelle.</text><rect x="562.667" y="150" width="474.667" height="630" rx="18" fill="#fff" stroke="#161616" stroke-width="2"/><g filter="url(#grey)"><svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="592.667" y="190" width="414.667" height="300" preserveAspectRatio="xMidYMid meet">
+  <!-- Concept B — Puerta de atraque v1: D with inner courtyard; a berth gate cuts the curved
+       flank so the courtyard opens to the outside. evenodd: outer D, inner hole, gate cut. -->
+  <path fill="#000000" fill-rule="evenodd" d="
+    M48 48
+    L128 48
+    A80 80 0 0 1 128 208
+    L48 208
+    Z
+    M96 88
+    L96 168
+    L168 168
+    A40 40 0 0 0 168 88
+    L96 88
+    Z
+    M156 104
+    L208 104
+    L208 152
+    L156 152
+    Z"/>
+</svg>
+</g><g filter="url(#grey)"><svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="592.667" y="516" width="64" height="64" preserveAspectRatio="xMidYMid meet">
+  <!-- Concept B — Puerta de atraque v1: D with inner courtyard; a berth gate cuts the curved
+       flank so the courtyard opens to the outside. evenodd: outer D, inner hole, gate cut. -->
+  <path fill="#000000" fill-rule="evenodd" d="
+    M48 48
+    L128 48
+    A80 80 0 0 1 128 208
+    L48 208
+    Z
+    M96 88
+    L96 168
+    L168 168
+    A40 40 0 0 0 168 88
+    L96 88
+    Z
+    M156 104
+    L208 104
+    L208 152
+    L156 152
+    Z"/>
+</svg>
+</g><text x="624.667" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g filter="url(#grey)"><svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="682.667" y="548" width="32" height="32" preserveAspectRatio="xMidYMid meet">
+  <!-- Concept B — Puerta de atraque v1: D with inner courtyard; a berth gate cuts the curved
+       flank so the courtyard opens to the outside. evenodd: outer D, inner hole, gate cut. -->
+  <path fill="#000000" fill-rule="evenodd" d="
+    M48 48
+    L128 48
+    A80 80 0 0 1 128 208
+    L48 208
+    Z
+    M96 88
+    L96 168
+    L168 168
+    A40 40 0 0 0 168 88
+    L96 88
+    Z
+    M156 104
+    L208 104
+    L208 152
+    L156 152
+    Z"/>
+</svg>
+</g><text x="698.667" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g filter="url(#grey)"><svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="740.667" y="564" width="16" height="16" preserveAspectRatio="xMidYMid meet">
+  <!-- Concept B — Puerta de atraque v1: D with inner courtyard; a berth gate cuts the curved
+       flank so the courtyard opens to the outside. evenodd: outer D, inner hole, gate cut. -->
+  <path fill="#000000" fill-rule="evenodd" d="
+    M48 48
+    L128 48
+    A80 80 0 0 1 128 208
+    L48 208
+    Z
+    M96 88
+    L96 168
+    L168 168
+    A40 40 0 0 0 168 88
+    L96 88
+    Z
+    M156 104
+    L208 104
+    L208 152
+    L156 152
+    Z"/>
+</svg>
+</g><text x="748.667" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="592.6666666666667" y="636" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">B · Puerta de atraque</text><text x="592.6666666666667" y="664" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#161616" letter-spacing="1.5">RECOMMENDED</text><text x="592.6666666666667" y="698" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">Una D con patio interior; una puerta de</text><text x="592.6666666666667" y="724" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">atraque lo conecta con el exterior — el</text><text x="592.6666666666667" y="750" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">muelle entre tu codigo y el mundo.</text><rect x="1065.33" y="150" width="474.667" height="630" rx="18" fill="#fff" stroke="#e4e4e0" stroke-width="1"/><g filter="url(#grey)"><svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="1095.33" y="190" width="414.667" height="300" preserveAspectRatio="xMidYMid meet">
+  <!-- Concept C — Tres atracaderos v1: three berth bars (dashboard cards) on the left + a bowl
+       ring (thickness 40) on the right; together they draw the D. Bars h40 y48/108/168. -->
+  <path fill="#000000" fill-rule="evenodd" d="
+    M56 48
+    L120 48
+    Q128 48 128 56
+    L128 80
+    Q128 88 120 88
+    L56 88
+    Q48 88 48 80
+    L48 56
+    Q48 48 56 48
+    Z
+    M56 108
+    L120 108
+    Q128 108 128 116
+    L128 140
+    Q128 148 120 148
+    L56 148
+    Q48 148 48 140
+    L48 116
+    Q48 108 56 108
+    Z
+    M56 168
+    L120 168
+    Q128 168 128 176
+    L128 200
+    Q128 208 120 208
+    L56 208
+    Q48 208 48 200
+    L48 176
+    Q48 168 56 168
+    Z
+    M128 48
+    A80 80 0 0 1 128 208
+    Z
+    M128 88
+    A40 40 0 0 1 128 168
+    Z"/>
+</svg>
+</g><g filter="url(#grey)"><svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="1095.33" y="516" width="64" height="64" preserveAspectRatio="xMidYMid meet">
+  <!-- Concept C — Tres atracaderos v1: three berth bars (dashboard cards) on the left + a bowl
+       ring (thickness 40) on the right; together they draw the D. Bars h40 y48/108/168. -->
+  <path fill="#000000" fill-rule="evenodd" d="
+    M56 48
+    L120 48
+    Q128 48 128 56
+    L128 80
+    Q128 88 120 88
+    L56 88
+    Q48 88 48 80
+    L48 56
+    Q48 48 56 48
+    Z
+    M56 108
+    L120 108
+    Q128 108 128 116
+    L128 140
+    Q128 148 120 148
+    L56 148
+    Q48 148 48 140
+    L48 116
+    Q48 108 56 108
+    Z
+    M56 168
+    L120 168
+    Q128 168 128 176
+    L128 200
+    Q128 208 120 208
+    L56 208
+    Q48 208 48 200
+    L48 176
+    Q48 168 56 168
+    Z
+    M128 48
+    A80 80 0 0 1 128 208
+    Z
+    M128 88
+    A40 40 0 0 1 128 168
+    Z"/>
+</svg>
+</g><text x="1127.33" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g filter="url(#grey)"><svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="1185.33" y="548" width="32" height="32" preserveAspectRatio="xMidYMid meet">
+  <!-- Concept C — Tres atracaderos v1: three berth bars (dashboard cards) on the left + a bowl
+       ring (thickness 40) on the right; together they draw the D. Bars h40 y48/108/168. -->
+  <path fill="#000000" fill-rule="evenodd" d="
+    M56 48
+    L120 48
+    Q128 48 128 56
+    L128 80
+    Q128 88 120 88
+    L56 88
+    Q48 88 48 80
+    L48 56
+    Q48 48 56 48
+    Z
+    M56 108
+    L120 108
+    Q128 108 128 116
+    L128 140
+    Q128 148 120 148
+    L56 148
+    Q48 148 48 140
+    L48 116
+    Q48 108 56 108
+    Z
+    M56 168
+    L120 168
+    Q128 168 128 176
+    L128 200
+    Q128 208 120 208
+    L56 208
+    Q48 208 48 200
+    L48 176
+    Q48 168 56 168
+    Z
+    M128 48
+    A80 80 0 0 1 128 208
+    Z
+    M128 88
+    A40 40 0 0 1 128 168
+    Z"/>
+</svg>
+</g><text x="1201.33" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g filter="url(#grey)"><svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="1243.33" y="564" width="16" height="16" preserveAspectRatio="xMidYMid meet">
+  <!-- Concept C — Tres atracaderos v1: three berth bars (dashboard cards) on the left + a bowl
+       ring (thickness 40) on the right; together they draw the D. Bars h40 y48/108/168. -->
+  <path fill="#000000" fill-rule="evenodd" d="
+    M56 48
+    L120 48
+    Q128 48 128 56
+    L128 80
+    Q128 88 120 88
+    L56 88
+    Q48 88 48 80
+    L48 56
+    Q48 48 56 48
+    Z
+    M56 108
+    L120 108
+    Q128 108 128 116
+    L128 140
+    Q128 148 120 148
+    L56 148
+    Q48 148 48 140
+    L48 116
+    Q48 108 56 108
+    Z
+    M56 168
+    L120 168
+    Q128 168 128 176
+    L128 200
+    Q128 208 120 208
+    L56 208
+    Q48 208 48 200
+    L48 176
+    Q48 168 56 168
+    Z
+    M128 48
+    A80 80 0 0 1 128 208
+    Z
+    M128 88
+    A40 40 0 0 1 128 168
+    Z"/>
+</svg>
+</g><text x="1251.33" y="600" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="1095.3333333333335" y="636" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">C · Tres atracaderos</text><text x="1095.3333333333335" y="670" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">Tres cards de dashboard + un anillo que</text><text x="1095.3333333333335" y="696" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">juntas dibujan la D: el tablero y el dock</text><text x="1095.3333333333335" y="722" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">en un solo gesto.</text></svg>

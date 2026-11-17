@@ -1,0 +1,31 @@
+{
+  "brand": "DevDock",
+  "tagline": "Your projects, moored and ready",
+  "brief": "A macOS dashboard for developers: drag any project folder (Node, Rust, Tauri, Python, Java, Go) and get metrics, dev servers, builds and the Git history at a glance. Calm, technical, honest — no hype.",
+  "adjectives": ["fast", "tidy", "technical", "honest", "dry-witted"],
+  "criteria": "Success: reads as a D with a mooring bollard crown at 16 px, works in one colour, distinct from dev-tool clichés (brackets, cursors, gears).",
+  "industry": "software",
+  "nav": ["Features", "Stack", "GitHub"],
+  "brand_color": "#7C9CFF",
+  "greyscale": false,
+  "designer": "shift",
+  "round": 1,
+  "concepts": [
+    {
+      "name": "Bita amarre",
+      "symbol": "concept-a-v3.svg",
+      "idea": "A D whose roof swells into a mooring bollard crown — your project, tied to the dock.",
+      "rationale": [
+        "Letterform D doubles as app icon and favicon",
+        "The bollard crown owns the dock metaphor without nautical clichés (no anchors, no waves)",
+        "Single-path geometry: audit 100/100, holds at 16 px"
+      ]
+    }
+  ],
+  "recommendation": "Bita amarre — the only direction that is unmistakably ours: a letter that is also an object, and the object is exactly what the product does.",
+  "next_steps": [
+    "Colour variants (carbon, accent, reversed) delivered",
+    "App icon set + favicon shipped into the Tauri bundle",
+    "Optional: custom wordmark to complete the lockup"
+  ]
+}

@@ -1,0 +1,18 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Concept A — Bita amarre v1: letterform D; its roof swells into a mooring bollard crest.
+       Canvas 256. Stem x48-96, bowl outer right x208 (r80 center 128,128), roof crest ~y8. -->
+  <path fill="#000000" fill-rule="evenodd" d="
+    M48 208
+    L48 40
+    C48 18 70 8 96 8
+    C118 8 128 30 128 48
+    A80 80 0 0 1 128 208
+    L48 208
+    Z
+    M96 88
+    L96 168
+    L168 168
+    A40 40 0 0 0 168 88
+    L96 88
+    Z"/>
+</svg>

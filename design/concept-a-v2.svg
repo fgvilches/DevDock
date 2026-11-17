@@ -1,0 +1,17 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>DevDock concept A — bita amarre</title>
+  <!-- Concept A v2 — letterform D; its roof swells into a mooring bollard crest.
+       Optically centred: mark spans y20..216 (margins 20/20). Stem x48-96, bowl right x208. -->
+  <path fill="#000000" fill-rule="evenodd" d="
+    M48 216
+    L48 52
+    C48 28 70 20 96 20
+    C112 20 128 36 128 56
+    A80 80 0 0 1 128 216
+    Z
+    M96 96
+    L96 176
+    L168 176
+    A40 40 0 0 0 168 96
+    Z"/>
+</svg>

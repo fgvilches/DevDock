@@ -1,0 +1,21 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Concept B — Puerta de atraque v1: D with inner courtyard; a berth gate cuts the curved
+       flank so the courtyard opens to the outside. evenodd: outer D, inner hole, gate cut. -->
+  <path fill="#000000" fill-rule="evenodd" d="
+    M48 48
+    L128 48
+    A80 80 0 0 1 128 208
+    L48 208
+    Z
+    M96 88
+    L96 168
+    L168 168
+    A40 40 0 0 0 168 88
+    L96 88
+    Z
+    M156 104
+    L208 104
+    L208 152
+    L156 152
+    Z"/>
+</svg>

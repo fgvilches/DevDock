@@ -1,5 +1,13 @@
 # DevDock
 
+<div align="center">
+
+![DevDock](design/devdock-accent.svg)
+
+**Your projects, moored and ready.**
+
+</div>
+
 Dashboard de proyectos para macOS: arrastra carpetas (Node, Rust, Tauri, Python, Java, Go…) y ten métricas, dev servers, builds y el historial de Git a un vistazo.
 
 ![stack](https://img.shields.io/badge/Tauri-2-24C8DB) ![stack](https://img.shields.io/badge/React-19-61DAFB) ![stack](https://img.shields.io/badge/Rust-stable-DEA584)
@@ -46,6 +54,10 @@ cargo test --manifest-path src-tauri/Cargo.toml --lib
 ## CI
 
 `.github/workflows/ci.yml`: build del frontend + `cargo test` + bundle debug en runner macOS en cada push/PR.
+
+## Logo
+
+La marca es una **D cuyo remate superior es una bita de amarre**: el proyecto, amarrado al muelle. Diseñada con la skill *logo-design* (geometría auditada, funciona a 16 px y en un color). Fuente vectorial en `design/`, variantes en `design/variants/`.
 
 ## Licencia
 

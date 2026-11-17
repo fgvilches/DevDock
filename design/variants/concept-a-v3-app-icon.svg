@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256"><rect width="256" height="256" rx="57.6" fill="#171A21"/><g transform="translate(23.1 25.94) scale(0.81)" fill="none">
+  
+  <!-- Craft pass v3: bollard crown = clear flat-ish crest wider than the stem.
+       Optical centring y28..224; bowl arc r83 (y58..224, right x211, +3 overshoot). -->
+  <path fill="#FFFFFF" fill-rule="evenodd" d="
+    M48 224
+    L48 58
+    C48 34 58 28 72 28
+    L96 28
+    C114 28 126 40 128 58
+    A83 83 0 0 1 128 224
+    Z
+    M96 98
+    L96 176
+    L166 176
+    A39 39 0 0 0 166 98
+    Z"/>
+</g></svg>
