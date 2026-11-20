@@ -61,6 +61,16 @@ cargo test --manifest-path src-tauri/Cargo.toml --lib
 
 `.github/workflows/ci.yml`: build del frontend + `cargo test` + bundle debug en runner macOS en cada push/PR.
 
+## First run
+
+Builds are **not code-signed with a Developer ID and not notarized** — there is no certificate in the build. The binary only carries the linker's ad-hoc signature, which is why macOS shows the "unidentified developer" warning when the app arrives from a download.
+
+Until a Developer ID is set up, executing this code on terminal.app:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/DevDock.app
+```
+
 ## Licencia
 
 MIT — ver [LICENSE](LICENSE).
