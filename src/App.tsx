@@ -36,11 +36,11 @@ function fmtBytes(b: number): string {
 }
 
 const KIND_ICON: Record<string, string> = {
-  node: "⬢", rust: "🦀", tauri: "🦀", python: "🐍", java: "☕", go: "🐹",
+  node: "⬢", rust: "🦀", tauri: "🦀", flutter: "🐦", python: "🐍", java: "☕", go: "🐹",
   php: "🐘", ruby: "💎", swift: "🦅", cpp: "⚙️", unknown: "📁",
 };
 const KIND_LABEL: Record<string, string> = {
-  node: "Node / JS", rust: "Rust", tauri: "Tauri (Rust+JS)", python: "Python",
+  node: "Node / JS", rust: "Rust", tauri: "Tauri (Rust+JS)", flutter: "Flutter (Dart)", python: "Python",
   java: "Java", go: "Go", php: "PHP", ruby: "Ruby", swift: "Swift", cpp: "C++", unknown: "Proyecto",
 };
 const kindIcon = (k: string) => KIND_ICON[k] || "📁";
@@ -87,6 +87,14 @@ function quickActionsFor(p: ProjectInfo): QuickAction[] {
         { label: "⚙ Build", program: "go", args: ["build", "./..."] },
         { label: "🧪 Test", program: "go", args: ["test", "./..."] },
       ];
+    case "flutter":
+      return [
+        { label: "▶ Run", program: "flutter", args: ["run"], primary: true },
+        { label: "⚙ Build apk", program: "flutter", args: ["build", "apk"] },
+        { label: "📦 pub get", program: "flutter", args: ["pub", "get"] },
+        { label: "🧪 Test", program: "flutter", args: ["test"] },
+        { label: "🔍 Analyze", program: "flutter", args: ["analyze"] },
+      ];
     default:
       return [];
   }
@@ -122,14 +130,22 @@ export default function App() {
     try { localStorage.setItem(LS_KEY, JSON.stringify(paths)); } catch {}
   }, []);
 
-  const addProject = useCallback(async (path: string, select = true) => {
+  const addProjects = useCallback(async (path: string, select = true) => {
     setLoading((prev) => [...new Set([...prev, path])]);
     try {
-      const info = await call<ProjectInfo>("detect_project", { path });
-      setProjects((prev) => [info, ...prev.filter((p) => p.path !== path)]);
-      if (select) setDetailPath(path);
-      const paths = savedPaths().filter((x) => x !== path);
-      savePaths([path, ...paths]);
+      const infos = await call<ProjectInfo[]>("scan_projects", { path });
+      if (!infos || infos.length === 0) {
+        notify(`No se detectaron proyectos en ${path}`);
+        return;
+      }
+      setProjects((prev) => {
+        const filtered = prev.filter((p) => !infos.some((i) => i.path === p.path));
+        return [...infos, ...filtered];
+      });
+      if (select && infos.length === 1) setDetailPath(infos[0].path);
+      const newPaths = infos.map((i) => i.path);
+      const paths = savedPaths().filter((x) => !newPaths.includes(x));
+      savePaths([...newPaths, ...paths]);
     } catch (e: any) {
       notify(`No se pudo leer ${path}: ${String(e)}`);
     } finally {
@@ -149,7 +165,7 @@ export default function App() {
   // persistencia: cargar proyectos al abrir
   useEffect(() => {
     const paths = savedPaths();
-    paths.forEach((p) => addProject(p, false));
+    paths.forEach((p) => addProjects(p, false));
     call<ToolVersions>("get_tool_versions").then(setToolVersions).catch(() => {});
     // auto-update check
     if (isTauri()) {
@@ -170,11 +186,11 @@ export default function App() {
       else if (payload.type === "leave" || payload.type === "cancelled") setDragOver(false);
       else if (payload.type === "drop") {
         setDragOver(false);
-        (payload.paths || []).forEach((p: string) => addProject(p, false));
+        (payload.paths || []).forEach((p: string) => addProjects(p, false));
       }
     }).then((fn: any) => { unlisten = fn; });
     return () => { if (unlisten) unlisten(); };
-  }, [addProject]);
+  }, [addProjects]);
 
   // eventos de procesos
   useEffect(() => {
@@ -228,7 +244,7 @@ export default function App() {
   const handlePickFolder = async () => {
     try {
       const folder = await open({ directory: true, multiple: false });
-      if (folder) await addProject(folder as string, false);
+      if (folder) await addProjects(folder as string, false);
     } catch (e: any) { notify(String(e)); }
   };
 

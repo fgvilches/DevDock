@@ -121,6 +121,7 @@ fn detect_kind(path: &Path) -> String {
     if path.join("Gemfile").exists() { return "ruby".into(); }
     if path.join("Package.swift").exists() { return "swift".into(); }
     if path.join("CMakeLists.txt").exists() { return "cpp".into(); }
+    if path.join("pubspec.yaml").exists() { return "flutter".into(); }
     "unknown".into()
 }
 
@@ -280,6 +281,53 @@ fn regex_capture(text: &str, pat: &str) -> Option<String> {
     re.captures(text)?.get(1).map(|m| m.as_str().to_string())
 }
 
+fn parse_flutter(path: &Path, info: &mut ProjectInfo) {
+    let content = match fs::read_to_string(path.join("pubspec.yaml")) {
+        Ok(c) => c,
+        Err(_) => return,
+    };
+    // simple YAML-ish parse
+    let mut section = String::new();
+    let mut deps = 0usize;
+    let mut devdeps = 0usize;
+    for line in content.lines() {
+        let trimmed = line.trim();
+        if trimmed.is_empty() || trimmed.starts_with('#') { continue; }
+        // top-level key (no leading space)
+        if !line.starts_with(' ') && trimmed.ends_with(':') {
+            section = trimmed.trim_end_matches(':').to_string();
+            continue;
+        }
+        // key: value at 2 spaces
+        if line.starts_with("  ") && !line.starts_with("    ") {
+            if section == "name" { /* handled below */ }
+        }
+        // name/version/description
+        if let Some(v) = trimmed.strip_prefix("name:") {
+            info.name = v.trim().trim_matches('"').to_string();
+        } else if let Some(v) = trimmed.strip_prefix("version:") {
+            info.version = Some(v.trim().trim_matches('"').to_string());
+        } else if let Some(v) = trimmed.strip_prefix("description:") {
+            info.description = Some(v.trim().trim_matches('"').to_string());
+        }
+        // count deps
+        if section == "dependencies" && line.starts_with("  ") && !line.starts_with("    ") && trimmed.contains(':') {
+            deps += 1;
+        }
+        if section == "dev_dependencies" && line.starts_with("  ") && !line.starts_with("    ") && trimmed.contains(':') {
+            devdeps += 1;
+        }
+    }
+    if deps > 0 { info.dependencies = deps; }
+    if devdeps > 0 { info.dev_dependencies = devdeps; }
+    // default scripts
+    if info.scripts.is_empty() {
+        for c in ["run", "build apk", "build appbundle", "test", "analyze", "pub get", "clean"] {
+            info.scripts.push(Script { name: c.to_string(), command: format!("flutter {}", c) });
+        }
+    }
+}
+
 fn count_files(path: &Path) -> (usize, u64) {
     let mut count = 0usize;
     let mut size = 0u64;
@@ -320,6 +368,53 @@ fn git_info(path: &Path) -> GitInfo {
     info
 }
 
+
+#[tauri::command]
+pub async fn scan_projects(path: String) -> Result<Vec<ProjectInfo>, String> {
+    let p = Path::new(&path);
+    if !p.exists() {
+        return Err("path does not exist".into());
+    }
+    let manifests = ["package.json", "Cargo.toml", "pyproject.toml", "requirements.txt", "setup.py",
+                     "pom.xml", "build.gradle", "build.gradle.kts", "go.mod", "pubspec.yaml",
+                     "composer.json", "Gemfile", "Package.swift", "CMakeLists.txt"];
+    let has_manifest = |dir: &Path| manifests.iter().any(|m| dir.join(m).exists())
+        || dir.join("src-tauri").join("Cargo.toml").exists();
+    let mut out: Vec<ProjectInfo> = Vec::new();
+    if has_manifest(p) {
+        if let Ok(info) = detect_project(path.clone()).await {
+            out.push(info);
+        }
+        return Ok(out);
+    }
+    // scan subfolders (depth 1 and 2)
+    let mut candidates: Vec<std::path::PathBuf> = Vec::new();
+    if let Ok(rd) = fs::read_dir(p) {
+        for e in rd.flatten() {
+            let fp = e.path();
+            if fp.is_dir() {
+                if has_manifest(&fp) { candidates.push(fp); }
+                else if let Ok(rd2) = fs::read_dir(&fp) {
+                    for e2 in rd2.flatten() {
+                        let fp2 = e2.path();
+                        if fp2.is_dir() && has_manifest(&fp2) { candidates.push(fp2); }
+                    }
+                }
+            }
+        }
+    }
+    candidates.sort();
+    candidates.truncate(20);
+    for c in candidates {
+        if let Some(s) = c.to_str() {
+            if let Ok(info) = detect_project(s.to_string()).await {
+                out.push(info);
+            }
+        }
+    }
+    Ok(out)
+}
+
 #[tauri::command]
 pub async fn detect_project(path: String) -> Result<ProjectInfo, String> {
     let p = Path::new(&path);
@@ -354,6 +449,7 @@ pub async fn detect_project(path: String) -> Result<ProjectInfo, String> {
         "python" => parse_python(p, &mut info),
         "java" => parse_java(p, &mut info),
         "go" => parse_go(p, &mut info),
+        "flutter" => parse_flutter(p, &mut info),
         _ => {}
     }
 
@@ -458,6 +554,19 @@ pub async fn stop_process(state: State<'_, Arc<ProcessManager>>, pid: u32) -> Re
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[tokio::test]
+    async fn scan_flutter_subproject() {
+        let infos = scan_projects("/Users/shift/Desktop/code/shift-tv".to_string()).await.unwrap();
+        println!("FOUND {} projects", infos.len());
+        for i in &infos { println!("  {} :: {}", i.kind, i.name); }
+        assert!(infos.iter().any(|i| i.kind == "flutter"), "flutter not detected");
+    }
+    #[tokio::test]
+    async fn scan_parent_finds_subprojects() {
+        let infos = scan_projects("/Users/shift/Desktop/code".to_string()).await.unwrap();
+        println!("FOUND {} projects (parent)", infos.len());
+        assert!(infos.len() >= 2, "should find multiple subprojects");
+    }
     #[test]
     fn resolve_program_finds_npm() {
         assert!(resolve_program("npm").starts_with('/'), "npm not resolved: {}", resolve_program("npm"));

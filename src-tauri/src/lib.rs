@@ -26,6 +26,7 @@ pub fn run() {
         })
         .invoke_handler(tauri::generate_handler![
             commands::detect_project,
+            commands::scan_projects,
             commands::get_tool_versions,
             commands::run_action,
             commands::stop_process,
