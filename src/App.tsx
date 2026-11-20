@@ -3,6 +3,8 @@ import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import { getCurrentWebview } from "@tauri-apps/api/webview";
 import { open } from "@tauri-apps/plugin-dialog";
+import { check } from "@tauri-apps/plugin-updater";
+import { relaunch } from "@tauri-apps/plugin-process";
 import "./App.css";
 
 type Script = { name: string; command: string };
@@ -102,6 +104,7 @@ export default function App() {
   const [dragOver, setDragOver] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [customCmd, setCustomCmd] = useState("");
+  const [pendingUpdate, setPendingUpdate] = useState<{ version: string; downloadAndInstall: () => Promise<void> } | null>(null);
   const [pidHistory, setPidHistory] = useState<Record<number, string>>({});
   const logEndRef = useRef<HTMLDivElement>(null);
 
@@ -148,6 +151,12 @@ export default function App() {
     const paths = savedPaths();
     paths.forEach((p) => addProject(p, false));
     call<ToolVersions>("get_tool_versions").then(setToolVersions).catch(() => {});
+    // auto-update check
+    if (isTauri()) {
+      check().then((u) => {
+        if (u) setPendingUpdate({ version: u.version, downloadAndInstall: () => u.downloadAndInstall() });
+      }).catch((e) => notify(`Update check: ${String(e)}`));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -302,6 +311,15 @@ export default function App() {
     <div className="app">
       <div className="topbar" data-tauri-drag-region>
         <h1 className="brand">DevDock</h1>
+        {pendingUpdate && (
+          <button className="btn primary sm" onClick={async () => {
+            try {
+              notify("Descargando actualización…");
+              await pendingUpdate.downloadAndInstall();
+              await relaunch();
+            } catch (e: any) { notify(`Update: ${String(e)}`); }
+          }}>↑ v{pendingUpdate.version} disponible — actualizar</button>
+        )}
         <div className="spacer" />
         {toolVersions && (
           <div className="tools">
