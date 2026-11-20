@@ -112,7 +112,16 @@ export default function App() {
   const [dragOver, setDragOver] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [customCmd, setCustomCmd] = useState("");
+  const [nameOverrides, setNameOverrides] = useState<Record<string, string>>(() => {
+    try { return JSON.parse(localStorage.getItem("devdock.names") || "{}"); } catch { return {}; }
+  });
+  const saveNames = useCallback((m: Record<string, string>) => {
+    try { localStorage.setItem("devdock.names", JSON.stringify(m)); } catch {}
+  }, []);
+  const displayName = useCallback((p: ProjectInfo) => nameOverrides[p.path] || p.name, [nameOverrides]);
   const [pendingUpdate, setPendingUpdate] = useState<{ version: string; downloadAndInstall: () => Promise<void> } | null>(null);
+  const [renamingPath, setRenamingPath] = useState<string | null>(null);
+  const [renameValue, setRenameValue] = useState("");
   const [pidHistory, setPidHistory] = useState<Record<number, string>>({});
   const logEndRef = useRef<HTMLDivElement>(null);
 
@@ -388,7 +397,34 @@ export default function App() {
                   <div className="proj-head">
                     <span className="proj-icon">{kindIcon(p.kind)}</span>
                     <div className="proj-title">
-                      <div className="proj-name">{p.name}</div>
+                      {renamingPath === p.path ? (
+                        <input className="rename-input" autoFocus value={renameValue}
+                          onChange={(e) => setRenameValue(e.target.value)}
+                          onClick={(e) => e.stopPropagation()}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              const v = renameValue.trim();
+                              if (v) {
+                                const next = { ...nameOverrides, [p.path]: v };
+                                setNameOverrides(next); saveNames(next);
+                              }
+                              setRenamingPath(null);
+                            } else if (e.key === "Escape") setRenamingPath(null);
+                          }}
+                          onBlur={() => {
+                            const v = renameValue.trim();
+                            if (v) {
+                              const next = { ...nameOverrides, [p.path]: v };
+                              setNameOverrides(next); saveNames(next);
+                            }
+                            setRenamingPath(null);
+                          }} />
+                      ) : (
+                        <div className="proj-name" title="Click para renombrar en DevDock"
+                          onClick={(e) => { e.stopPropagation(); setRenamingPath(p.path); setRenameValue(displayName(p)); }}>
+                          {displayName(p)} ✎
+                        </div>
+                      )}
                       <div className="proj-kind">{kindLabel(p.kind)} {p.version ? `· v${p.version}` : ""}</div>
                     </div>
                     <div className="status-wrap">
@@ -455,11 +491,32 @@ export default function App() {
           <aside className="drawer" onClick={(e) => e.stopPropagation()}>
             <div className="drawer-head">
               <span className="proj-icon">{kindIcon(detailProject.kind)}</span>
-              <div>
-                <div className="proj-name">{detailProject.name}</div>
+              <div style={{ minWidth: 0, flex: 1 }}>
+                {renamingPath === detailProject.path ? (
+                  <input className="rename-input" autoFocus value={renameValue}
+                    onChange={(e) => setRenameValue(e.target.value)}
+                    onKeyDown={async (e) => {
+                      if (e.key === "Enter") {
+                        const v = renameValue.trim();
+                        if (v) {
+                          try {
+                            await call("rename_project", { path: detailProject.path, newName: v });
+                            const next = { ...nameOverrides }; delete next[detailProject.path]; setNameOverrides(next); saveNames(next);
+                            await refresh(detailProject.path);
+                            notify(`Renombrado en disco: ${v}`);
+                          } catch (err: any) { notify(`rename: ${String(err)}`); }
+                        }
+                        setRenamingPath(null);
+                      } else if (e.key === "Escape") setRenamingPath(null);
+                    }}
+                    onBlur={() => setRenamingPath(null)} />
+                ) : (
+                  <div className="proj-name">{displayName(detailProject)}</div>
+                )}
                 <div className="path-sm">{detailProject.path}</div>
               </div>
               <div className="spacer" />
+              <button className="btn sm" title="Renombrar en el manifest del proyecto" onClick={() => { setRenamingPath(detailProject.path); setRenameValue(displayName(detailProject)); }}>✏ Renombrar en disco</button>
               <button className="btn sm icon" onClick={() => setDetailPath(null)}>✕</button>
             </div>
             <div className="tabs">

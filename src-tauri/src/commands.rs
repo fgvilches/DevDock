@@ -369,6 +369,61 @@ fn git_info(path: &Path) -> GitInfo {
 }
 
 
+
+#[tauri::command]
+pub async fn rename_project(path: String, new_name: String) -> Result<ProjectInfo, String> {
+    let p = Path::new(&path);
+    if !p.exists() { return Err("path does not exist".into()); }
+    let kind = detect_kind(p);
+    // Update the manifest on disk when supported.
+    match kind.as_str() {
+        "node" => {
+            if let Some(mut pj) = read_json(&p.join("package.json")) {
+                pj["name"] = serde_json::Value::String(new_name.clone());
+                let out = serde_json::to_string_pretty(&pj).map_err(|e| e.to_string())?;
+                fs::write(p.join("package.json"), out).map_err(|e| e.to_string())?;
+            }
+        }
+        "rust" | "tauri" => {
+            let cargo_dir = if p.join("Cargo.toml").exists() { p.to_path_buf() }
+                else if p.join("src-tauri").join("Cargo.toml").exists() { p.join("src-tauri") }
+                else { p.to_path_buf() };
+            let cargo_path = cargo_dir.join("Cargo.toml");
+            if cargo_path.exists() {
+                let content = fs::read_to_string(&cargo_path).map_err(|e| e.to_string())?;
+                let re = regex::Regex::new(r#"(?m)^(\s*name\s*=\s*")([^"]*)(")"#).unwrap();
+                let new_content = re.replace(&content, |caps: &regex::Captures| {
+                    format!("{}{}{}", &caps[1], new_name, &caps[3])
+                }).to_string();
+                fs::write(&cargo_path, new_content).map_err(|e| e.to_string())?;
+            }
+        }
+        "flutter" => {
+            let pp = p.join("pubspec.yaml");
+            if pp.exists() {
+                let content = fs::read_to_string(&pp).map_err(|e| e.to_string())?;
+                let re = regex::Regex::new(r#"(?m)^(name:\s*).*$"#).unwrap();
+                let new_content = re.replace(&content, format!("${{1}}{}", new_name)).to_string();
+                fs::write(&pp, new_content).map_err(|e| e.to_string())?;
+            }
+        }
+        "python" => {
+            let pp = p.join("pyproject.toml");
+            if pp.exists() {
+                let content = fs::read_to_string(&pp).map_err(|e| e.to_string())?;
+                let re = regex::Regex::new(r#"(?m)^(\s*name\s*=\s*")([^"]*)(")"#).unwrap();
+                let new_content = re.replace(&content, |caps: &regex::Captures| {
+                    format!("{}{}{}", &caps[1], new_name, &caps[3])
+                }).to_string();
+                fs::write(&pp, new_content).map_err(|e| e.to_string())?;
+            }
+        }
+        _ => {}
+    }
+    // re-detect
+    detect_project(path).await
+}
+
 #[tauri::command]
 pub async fn scan_projects(path: String) -> Result<Vec<ProjectInfo>, String> {
     let p = Path::new(&path);
