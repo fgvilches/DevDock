@@ -8,58 +8,58 @@
 
 </div>
 
-Dashboard de proyectos para macOS: arrastra carpetas (Node, Rust, Tauri, Python, Java, Go…) y ten métricas, dev servers, builds y el historial de Git a un vistazo.
+A project dashboard for macOS: drag & drop folders (Node, Rust, Tauri, Python, Java, Go…) and get metrics, dev servers, builds and the full Git history at a glance.
 
 ![stack](https://img.shields.io/badge/Tauri-2-24C8DB) ![stack](https://img.shields.io/badge/React-19-61DAFB) ![stack](https://img.shields.io/badge/Rust-stable-DEA584)
 
 ## Screenshots
 
-| Dashboard | Detalle (Git graph) | Logs |
+| Dashboard | Detail (Git graph) | Logs |
 |---|---|---|
 | ![Dashboard](docs/screenshots/shot-dashboard.png) | ![Git](docs/screenshots/shot-git.png) | ![Logs](docs/screenshots/shot-logs.png) |
 
-## Qué hace
+## Features
 
-- **Drag & drop** de carpetas de proyectos y detección automática del tipo (package.json, Cargo.toml, pyproject.toml, pom.xml, go.mod…).
-- **Métricas al tiro**: versión, dependencias/devDeps, nº de archivos, tamaño, runtimes instalados (node/npm/python/cargo/java/go/git).
-- **Acciones con un click**: dev server, build, prod, test — por tipo de proyecto (npm, cargo, gradle, go, pytest). Procesos en su propio process group: el botón ■ Stop mata el árbol completo (npm → vite), no solo al wrapper.
-- **Git a un vistazo**: rama, dirty files, ahead/behind, y graph de commits con lanes de branches/merges. Si el proyecto no tiene repo, botón para `git init`.
-- **Logs en vivo** por proyecto (stdout/stderr + eventos de salida).
-- **Persistencia**: la lista de proyectos sobrevive al reiniciar (localStorage).
+- **Drag & drop** project folders with automatic type detection (package.json, Cargo.toml, pyproject.toml, pom.xml, go.mod…).
+- **Instant metrics**: version, dependencies/devDeps, file count, size, installed runtimes (node/npm/python/cargo/java/go/git).
+- **One-click actions**: dev server, build, prod, test — per project type (npm, cargo, gradle, go, pytest). Processes run in their own process group: the ■ Stop button kills the whole tree (npm → vite), not just the wrapper.
+- **Git at a glance**: branch, dirty files, ahead/behind, and a commit graph with branch/merge lanes. No repo? One click to `git init`.
+- **Live logs** per project (stdout/stderr + exit events).
+- **Persistence**: the project list survives app restarts (localStorage).
 
-## Arquitectura
+## Architecture
 
 ```
 src/                 React 19 + Vite (frontend, glass UI)
 src-tauri/           Rust backend (Tauri 2)
-  src/commands.rs        detección de proyecto, git, tool versions
-  src/process_manager.rs spawn + kill de grupos de procesos, streaming de logs
-  src/models.rs          structs serde (camelCase ⇄ TS)
+  src/commands.rs        project detection, git, tool versions
+  src/process_manager.rs process-group spawn/kill, log streaming
+  src/models.rs          serde structs (camelCase ⇄ TS)
 ```
 
-## Desarrollo
+## Development
 
 ```bash
 npm install
-npm run tauri dev        # app en modo dev
-npm run tauri build      # bundle release
+npm run tauri dev        # dev mode
+npm run tauri build      # release bundle
 ```
 
-Tests del backend:
+Backend tests:
 
 ```bash
 cargo test --manifest-path src-tauri/Cargo.toml --lib
 ```
 
-## Notas técnicas
+## Technical notes
 
-- Los procesos se lanzan en su propio **process group** (`process_group(0)`) y el stop llama `kill(2)` sobre el pgid — `kill(1)` de macOS parsea mal los pids negativos.
-- PATH extendido en el backend (`/opt/homebrew/bin`, `~/.cargo/bin`, …) porque una app lanzada por launchd/Finder no hereda tu shell PATH.
-- Glass nativo vía `window-vibrancy` (`NSVisualEffectMaterial::UnderWindowBackground`), `titleBarStyle: Overlay`.
+- Processes are spawned in their own **process group** (`process_group(0)`) and stop calls `kill(2)` on the pgid — macOS `kill(1)` misparses negative pids as flags.
+- The backend resolves binaries through an extended PATH (`/opt/homebrew/bin`, `~/.cargo/bin`, …) because a launchd/Finder-launched app doesn't inherit your shell PATH.
+- Native glass via `window-vibrancy` (`NSVisualEffectMaterial::UnderWindowBackground`), `titleBarStyle: Overlay`.
 
 ## CI
 
-`.github/workflows/ci.yml`: build del frontend + `cargo test` + bundle debug en runner macOS en cada push/PR.
+`.github/workflows/ci.yml`: frontend build + `cargo test` + debug bundle on a macOS runner for every push/PR.
 
 ## First run
 
@@ -71,6 +71,6 @@ Until a Developer ID is set up, executing this code on terminal.app:
 xattr -dr com.apple.quarantine /Applications/DevDock.app
 ```
 
-## Licencia
+## License
 
-MIT — ver [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE).
